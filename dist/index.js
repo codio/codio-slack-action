@@ -985,13 +985,14 @@ const bent_1 = __importDefault(__webpack_require__(113));
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const hook = core.getInput('slack_hook_url', { required: true });
-        const success = core.getInput('success') === "true";
+        const success = core.getInput('success');
+        const successBool = success === 'true' || success === 'success';
         const message = core.getInput('message', { required: false });
         console.log(`Status: ${core.getInput('success')}`);
         const payload = {
             attachments: [{
                     text: message,
-                    color: (success) ? "good" : "#FF0000"
+                    color: (successBool) ? "good" : "#FF0000"
                 }]
         };
         const post = bent_1.default('POST', 200);

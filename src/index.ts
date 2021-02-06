@@ -4,7 +4,8 @@ import bent from 'bent'
 const main = async () => {
   try {
     const hook = core.getInput('slack_hook_url', { required: true })
-    const success = core.getInput('success') === "true"
+    const success = core.getInput('success')
+    const successBool = success === 'true' || success === 'success'
     const message = core.getInput('message', { required: false })
 
     console.log(`Status: ${core.getInput('success')}`)
@@ -12,7 +13,7 @@ const main = async () => {
     const payload = {
       attachments: [{
       text: message,
-      color: (success) ? "good" : "#FF0000"
+      color: (successBool) ? "good" : "#FF0000"
       }]
     }
 
