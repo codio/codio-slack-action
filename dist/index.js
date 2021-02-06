@@ -987,6 +987,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         const hook = core.getInput('slack_hook_url', { required: true });
         const success = core.getInput('success') === "true";
         const message = core.getInput('message', { required: false });
+        console.log(core.getInput('success'));
         const payload = {
             attachments: [{
                     text: message,
