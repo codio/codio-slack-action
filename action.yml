@@ -1,0 +1,19 @@
+# action.yml
+name: 'Codio Slack Notification Action'
+description: 'Notifies Codio slack channels'
+inputs:
+  slack_hook_url:
+    description: 'Hook URL'
+    required: true
+    default: ''
+  success:
+    description: 'success (boolean)'
+    required: false
+    default: 'true'
+  message:
+    description: 'Message to send'
+    required: true
+    default: ''
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
