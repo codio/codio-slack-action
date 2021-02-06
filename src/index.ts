@@ -7,7 +7,7 @@ const main = async () => {
     const success = core.getInput('success') === "true"
     const message = core.getInput('message', { required: false })
 
-    console.log(core.getInput('success'))
+    console.log(`Status: ${core.getInput('success')}`)
 
     const payload = {
       attachments: [{
