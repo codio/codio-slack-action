@@ -19,10 +19,9 @@ const main = async () => {
 
     const post = bent('POST', 200)
     await post(hook, payload)
-
   } catch (error) {
     console.log(error)
-    core.setFailed(error.message)
+    core.setFailed((error as Error).message)
   }
 }
 
