@@ -15,5 +15,22 @@ inputs:
     required: true
     default: ''
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        SLACK_HOOK_URL: ${{ inputs.slack_hook_url }}
+        SUCCESS: ${{ inputs.success }}
+        MESSAGE: ${{ inputs.message }}
+      run: |
+        set -euo pipefail
+        echo "Status: ${SUCCESS}"
+        color='#FF0000'
+        if [[ "${SUCCESS}" == 'true' || "${SUCCESS}" == 'success' ]]; then
+          color='good'
+        fi
+        payload="$(jq -n --arg text "${MESSAGE}" --arg color "${color}" \
+          '{attachments: [{text: $text, color: $color}]}')"
+        curl --fail-with-body --silent --show-error --retry 3 --max-time 30 \
+          --header 'Content-Type: application/json' \
+          --data "${payload}" "${SLACK_HOOK_URL}"
